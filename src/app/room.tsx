@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {
@@ -24,14 +23,60 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { getRooms } from "#/modules/app/storage";
+import { Room } from "#/modules/app/types";
+import { useRouter } from "next/navigation";
+import {validateRoomRequest} from "@/components/requests/validateRoom";
 
-const RoomPage: React.FC = () => {
+
+const RoomPage: React.FC = (
+  { room }: { room: Room }
+) => {
   const [playerCount, setPlayerCount] = useState<number>(4);
   const [gameMode, setGameMode] = useState<string>("classic");
   const [roomCode, setRoomCode] = useState<string>("ABC123");
-
   const router = useRouter();
-  const { id } = router.query;
+
+  const rooms = getRooms();
+  const { id } = room;
+  validateRoomRequest(id).then((room) => {
+    
+
+
+
+    if (!id || typeof id !== "string" || !room) {
+      return (
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-indigo-700 mb-4">
+              Sala não encontrada
+            </h1>
+            <p className="text-lg text-indigo-600 mb-4">
+              A sala que você está tentando acessar não existe.
+            </p>
+            <Button
+              onClick={() => router.push("/")}
+              className="bg-indigo-600 hover:bg-indigo-700 text-white"
+            >
+              Voltar para a página inicial
+            </Button>
+          </div>
+        </div>
+      );
+    }
+
+    setRoomData(room);
+  
+
+
+
+
+
+
+  });
+  console.log("id", room.id); 
+  console.log("rooms", rooms);
+
   const [roomData, setRoomData] = useState<any>(null);
 
   useEffect(() => {

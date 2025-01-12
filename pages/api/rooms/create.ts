@@ -23,6 +23,9 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
       startedAt: new Date(),
       status: "waiting",
     };
+    rooms.push(room);
+    console.log("Room created", room);
+    console.log(rooms);
     return res.status(201).json(room);
   }
 
