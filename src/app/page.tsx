@@ -14,6 +14,8 @@ import {
 import Footer from "@/components/ui/footer";
 import { Input } from "@/components/ui/input";
 import Loader from "@/components/utils/Loader";
+import { createRoomRequest } from "@/components/requests/createRoom";
+import { generatePlayerId  } from "#/modules/utils/id";
 
 const Home: React.FC = () => {
   const avatars = [
@@ -63,6 +65,22 @@ const Home: React.FC = () => {
   const createRoom = () => {
     setLoaderText("Opa, estamos criando a sala para você...");
     setLoading(true);
+
+    const owner = {
+      id: generatePlayerId(),
+      nickname,
+      photoId: selectedAvatar,
+    };
+
+    createRoomRequest(owner).then((response) => {
+      if (response) {
+        console.log(response);
+      } else {
+        console.log("Erro ao criar a sala.");
+      }
+      setLoading(false);
+    });
+  
   }
 
   return (

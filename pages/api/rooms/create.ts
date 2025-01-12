@@ -17,7 +17,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     }
     const room: Room = {
       id,
-      members: [owner],
+      members: [],
       owner,
       size: 4,
       startedAt: new Date(),

@@ -1,3 +1,8 @@
+export interface Photo{
+    id: string;
+    url: string;
+}
+
 export interface Member {
   id: string;
   nickname: string;
