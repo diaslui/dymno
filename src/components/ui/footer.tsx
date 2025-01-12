@@ -28,19 +28,18 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4">Acesso Rápido</h3>
             <ul className="space-y-2">
-              {[
-                { label: "Como Jogar", url: "/como-jogar" },
-                { label: "Ranking", url: "/ranking" },
-              ].map(({ label, url }) => (
-                <li key={label}>
-                  <a
-                    href={url}
-                    className="hover:text-yellow-300 transition-colors"
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
+              {[{ label: "Como Jogar", url: "/howplay" }].map(
+                ({ label, url }) => (
+                  <li key={label}>
+                    <a
+                      href={url}
+                      className="hover:text-yellow-300 transition-colors"
+                    >
+                      {label}
+                    </a>
+                  </li>
+                )
+              )}
             </ul>
           </div>
 
@@ -49,7 +48,7 @@ const Footer: React.FC = () => {
             <ul className="space-y-2">
               {[
                 { label: "FAQ", url: "/faq" },
-                { label: "Termos de Uso", url: "/termos-de-uso" },
+                { label: "Termos de Uso", url: "/terms" },
                 { label: "Contato", url: "/contact" },
                 { label: "Manifesto", url: "/manifest" },
               ].map(({ label, url }) => (
@@ -102,17 +101,14 @@ const Footer: React.FC = () => {
             reservados.
           </p>
           <p className="mt-2 flex items-center font-bold justify-center">
-            Feito com <Heart className="h-4 w-4 mx-1 text-red-500" /> no Brasil
-          </p>
-
-          <p className="mt-2 flex items-center justify-center">
-            Criado por -{" "}
+            Made with <Heart className="h-4 w-4 mx-1 text-red-500" /> by {" <"}
             <a
               href="https://github.com/luiisp"
               className="hover:text-yellow-300 font-bold transition-colors"
             >
               Lui
             </a>
+            {"/>"}
           </p>
         </div>
       </div>

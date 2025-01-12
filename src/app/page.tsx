@@ -29,6 +29,7 @@ const Home: React.FC = () => {
   const [selectedAvatar, setSelectedAvatar] = useState<string>(avatars[0]);
   const [avatarIndex, setAvatarIndex] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true); 
+  const [loaderText, setLoaderText] = useState<string>("");
 
   useEffect(() => {
     const savedNickname = localStorage.getItem("nickname");
@@ -57,6 +58,11 @@ const Home: React.FC = () => {
     setSelectedAvatar(newAvatar);
     localStorage.setItem("avatar", newAvatar);
   };
+  
+  const createRoom = () => {
+    setLoaderText("Opa, estamos criando a sala para você...");
+    setLoading(true);
+  }
 
   return (
     <div
@@ -64,7 +70,7 @@ const Home: React.FC = () => {
       style={{ backgroundImage: "url('/assets/img/bg.jpg')" }}
     >
 
-      {loading && <Loader loaderText="" />}
+      {loading && <Loader loaderText={loaderText} />}
       <div className="absolute inset-0 bg-indigo-700 bg-opacity-80"></div>
 
       <div className="relative z-10 flex flex-col min-h-screen">
@@ -140,7 +146,7 @@ const Home: React.FC = () => {
                 onChange={(e) => setNickname(e.target.value)}
                 className="mt-2 text-center"
               />
-              <Button className="w-full mt-4 mb-2 text-lg py-4 " size="lg">
+              <Button className="w-full mt-4 mb-2 text-lg py-4 " onClick={createRoom} size="lg">
                 <Play className="mr-2 h-5 w-5" /> Criar Sala
               </Button>
             </div>
