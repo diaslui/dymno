@@ -1,6 +1,6 @@
-import { Photo } from "../app/types";
+import { Avatar } from "../app/types";
 
-export const photos: Array<Photo> = [
+export const avatars: Array<Avatar> = [
     {
         id: "0",
         url: "assets/img/avatar/0.jpg"

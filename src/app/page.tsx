@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input";
 import Loader from "@/components/utils/Loader";
 import { createRoomRequest } from "@/components/requests/createRoom";
 import { generatePlayerId  } from "#/modules/utils/id";
+import {avatars} from "#/modules/settings/";
 
 const Home: React.FC = () => {
   const avatars = [

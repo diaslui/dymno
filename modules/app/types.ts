@@ -1,4 +1,4 @@
-export interface Photo{
+export interface Avatar{
     id: string;
     url: string;
 }
@@ -6,7 +6,7 @@ export interface Photo{
 export interface Member {
   id: string;
   nickname: string;
-  photoId: string;
+  avatarId: string;
 }
 
 export interface Mode {
