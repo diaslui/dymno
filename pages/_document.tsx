@@ -5,7 +5,6 @@ class MyDocument extends Document {
     return (
       <Html lang="pt-BR">
         <Head>
-          {/* Adicionando o link para a fonte Mona Sans */}
           <link
             href="https://cdn.jsdelivr.net/gh/mona-sans/mona-sans/font.css"
             rel="stylesheet"
