@@ -48,6 +48,7 @@ const Home: React.FC = () => {
   }, []);
 
   useEffect(() => {
+    if (nickname.length > 20) setNickname(nickname.slice(0, 20));
     if (nickname) localStorage.setItem("nickname", nickname);
   }, [nickname]);
 
@@ -137,6 +138,7 @@ const Home: React.FC = () => {
               <Input
                 id="nickname"
                 type="text"
+                maxLength={20}
                 placeholder="NicknameMassa123"
                 autoComplete="off"
                 value={nickname}
@@ -155,6 +157,7 @@ const Home: React.FC = () => {
               <div className="flex space-x-2">
                 <Input
                   type="text"
+                  maxLength={12}
                   placeholder="Link ou código da sala"
                   autoComplete="off"
                   value={roomCode}

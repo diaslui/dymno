@@ -110,6 +110,9 @@ const Footer: React.FC = () => {
             </a>
             {"/>"}
           </p>
+          <p className="mt-2 text-sm">
+            Yes, this will soon be open source{" "}
+          </p>
         </div>
       </div>
     </footer>
