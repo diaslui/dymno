@@ -37,9 +37,9 @@ const Home: React.FC = () => {
 
   const params = useParams();
 
-  const { room } = params;
-  if (room) {
-    setRoomCode(room);
+  const roomParam = params?.room;
+  if (roomParam && typeof roomParam === 'string') {
+    setRoomCode(roomParam);
   }
 
   useEffect(() => {
