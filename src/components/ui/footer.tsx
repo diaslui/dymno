@@ -106,7 +106,7 @@ const Footer: React.FC = () => {
               href="https://github.com/luiisp"
               className="hover:text-yellow-300 font-bold transition-colors"
             >
-              Lui
+              Lui 
             </a>
             {"/>"}
           </p>

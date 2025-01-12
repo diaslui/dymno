@@ -108,13 +108,10 @@ const Home: React.FC = () => {
 
         <main className="flex-grow flex items-center justify-center p-4">
           <div className="bg-white bg-opacity-95 backdrop-blur-xl border-2 border-yellow-500 rounded-3xl shadow-2xl p-8 max-w-md w-full transition-all duration-300 hover:shadow-indigo-600/50">
-            <h1 className="text-4xl font-bold text-center text-indigo-700 mb-8">
-              Vamos jogar?
-            </h1>
 
             <div className="mb-8 flex flex-col items-center justify-center">
               <h3 className="text-lg font-semibold mb-4 text-indigo-600">
-                Escolha um Avatar e um Nickname!
+                Escolha um Avatar e um Nickname
               </h3>
               <div className="relative w-32 h-32 mb-2">
                 <Image
@@ -158,7 +155,7 @@ const Home: React.FC = () => {
               <div className="flex space-x-2">
                 <Input
                   type="text"
-                  placeholder="Código da sala"
+                  placeholder="Link ou código da sala"
                   autoComplete="off"
                   value={roomCode}
                   onChange={(e) => setRoomCode(e.target.value)}
