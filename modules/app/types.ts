@@ -1,3 +1,6 @@
+import * as react from "react";
+import { LucideProps } from "lucide-react";
+
 export interface Avatar{
     id: string;
     url: string;
@@ -11,8 +14,9 @@ export interface Member {
 
 export interface Mode {
   modeId: string;
-  displayName: string;
+  label: string;
   description: string;
+  icon: react.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & react.RefAttributes<SVGSVGElement>>;
   minPlayers: number;
   maxPlayers: number;
 }
