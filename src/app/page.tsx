@@ -37,7 +37,7 @@ const Home: React.FC = () => {
     if (roomCode) {
       setLoaderText("Opa, estamos entrando na sala para você...");
       setLoading(true);
-       validateRoomRequest(roomCode).then((response: Room | null) => {
+       validateRoomRequest(roomCode).then((response: Room | undefined) => {
          if (response) {
            setLoading(false);
            setRoom(response);

@@ -24,7 +24,8 @@ export interface Mode {
 export interface Room {
   id: string;
   members: Member[];
-  owner: Member;
+  owner: Member | undefined;
+  createdBy: Member;
   size: number;
   mode?: Mode;
   startedAt: Date;

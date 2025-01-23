@@ -46,6 +46,10 @@ const RoomPage: React.FC = (
  
 
   useEffect(() => {
+    console.log("Inside Room ->", room)
+    if (!room){
+      return; 
+    }
 
     const { id } = room;
     validateRoomRequest(id).then((room) => {
