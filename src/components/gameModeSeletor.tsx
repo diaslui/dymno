@@ -1,6 +1,6 @@
 import React from 'react';
 import { modes } from '#/modules/settings/modes';
-import { Mode } from '#/app/types';
+import { Mode } from '#/modules/core/types';
 
 interface GameModeProps extends Mode {
   onClick: () => void;

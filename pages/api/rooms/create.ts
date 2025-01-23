@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { generateRoomId } from "../../../modules/utils/id";
-import { rooms } from "#/app/storage";
-import { Room, Member } from "#/app/types";
+import { rooms } from "#/modules/core/storage";
+import { Room, Member } from "#/modules/core/types";
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {

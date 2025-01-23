@@ -1,4 +1,4 @@
-import { Mode } from "#/app/types";
+import { Mode } from "#/modules/core/types";
 import { Pencil, Film, Dice6, Dices } from 'lucide-react';
 
 

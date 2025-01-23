@@ -23,11 +23,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getRooms } from "#/modules/app/storage";
-import { Room } from "#/modules/app/types";
+import { getRooms } from "#/modules/core/storage";
+import { Room } from "#/modules/core/types";
 import { useRouter } from "next/navigation";
 import {validateRoomRequest} from "@/components/requests/validateRoom";
 import GameModeSelector from "@/components/gameModeSeletor";
+import {io} from "socket.io-client"
 
 
 const RoomPage: React.FC = (
@@ -57,6 +58,24 @@ const RoomPage: React.FC = (
       }
   
       setRoomData(room);
+
+      const socket = io("https://192.168.0.136:3000");
+
+      socket.on(
+        "connect", () => {
+
+
+          console.log("connected")
+
+        }
+
+      )
+
+      socket.on(
+        "disconnect", () => {
+          console.log("disconnected")
+        }
+      )
     
   
   

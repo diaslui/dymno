@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { rooms } from "#/app/storage"; // Importando o armazenamento das salas
+import { rooms } from "#/modules/core/storage"; 
 
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {

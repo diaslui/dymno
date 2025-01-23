@@ -1,4 +1,4 @@
-import { Avatar } from "../app/types";
+import { Avatar } from "../core/types";
 
 export const avatars: Array<Avatar> = [
     {
