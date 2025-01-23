@@ -31,6 +31,7 @@ const Home: React.FC = () => {
   const [loaderText, setLoaderText] = useState<string>("");
   const [onRoom, setOnRoom] = useState<boolean>(false);
   const [room, setRoom] = useState<Room | undefined>(undefined);
+  const [user, setUser] = useState<Member | undefined>(undefined);
   const searchParams = useSearchParams();
 
   const roomRedirect = (roomCode: string) => {
@@ -58,6 +59,11 @@ const Home: React.FC = () => {
       console.log("Room code:", roomParam);
       setRoomCode(roomParam); // redirect the user to the room if it is
       roomRedirect(roomParam);
+      setUser({
+        avatarId: avatarIndex.toString(),
+        id: generatePlayerId(),
+        nickname: nickname,
+      })
     }
     console.log("Room code:", roomCode);
   }, [searchParams, roomCode]);
@@ -109,6 +115,7 @@ const Home: React.FC = () => {
       if (response) {
         setLoading(false);
         setRoom(response);
+        setUser(owner);
         setOnRoom(true);
 
       } else {
@@ -121,7 +128,7 @@ const Home: React.FC = () => {
   return (
     <>
       {onRoom && room ? (
-        <RoomPage room={room} />
+        <RoomPage room={room} user={user} />
       ) : (
         <div
           className="relative min-h-screen bg-cover bg-center flex flex-col"

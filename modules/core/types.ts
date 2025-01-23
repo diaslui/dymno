@@ -10,6 +10,7 @@ export interface Member {
   id: string;
   nickname: string;
   avatarId: string;
+  socketId?: string;
 }
 
 export interface Mode {

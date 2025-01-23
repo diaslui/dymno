@@ -30,3 +30,15 @@ export const avatars: Array<Avatar> = [
         url: "/assets/img/avatar/6.jpg"
     },
 ]
+
+export const getAvatarById = (avatarId:string): string => {
+
+    const avatar = avatars.find((avatar) => avatar.id == avatarId)
+    
+    if (!avatar){
+        return avatars[0].url;
+    }
+
+
+    return avatar.url
+}

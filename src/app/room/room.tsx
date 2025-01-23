@@ -24,15 +24,17 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { getRooms } from "#/modules/core/storage";
-import { Room } from "#/modules/core/types";
+import { Room, Member } from "#/modules/core/types";
 import { useRouter } from "next/navigation";
 import {validateRoomRequest} from "@/components/requests/validateRoom";
 import GameModeSelector from "@/components/gameModeSeletor";
 import {io} from "socket.io-client"
+import {getAvatarById} from "#/modules/settings/avatars"
+
 
 
 const RoomPage: React.FC = (
-  { room }: { room: Room  }
+  { room, user }: { room: Room, user: Member }
 ) => {
 
   const [playerCount, setPlayerCount] = useState<number>(4);
@@ -47,8 +49,9 @@ const RoomPage: React.FC = (
 
   useEffect(() => {
     console.log("Inside Room ->", room)
+
     if (!room){
-      return; 
+      return;
     }
 
     const { id } = room;
@@ -65,16 +68,32 @@ const RoomPage: React.FC = (
   
       setRoomData(room);
 
-      const socket = io("https://192.168.0.136:3000");
+      const socket = io("ws://127.0.0.1:8000")
+      user.socketId = socket.id
 
       socket.on(
         "connect", () => {
-
-
           console.log("connected")
 
-        }
 
+        socket.emit(
+          "join-room", {
+            member:user,
+            roomId: room.id
+          }
+        )
+        }
+      )
+
+      socket.on(
+        "room-update", 
+        (room: Room) => {
+          console.log("room updated --> ", room)
+          setPlayers(room.members)
+          if (room.mode){
+            setGameMode(room.mode.modeId)
+          } 
+        }
       )
 
       socket.on(
@@ -98,7 +117,7 @@ const RoomPage: React.FC = (
 
 
 
-  }, []);
+  }, [room, user]);
 
   const playersMock = [
     {
@@ -213,8 +232,8 @@ const RoomPage: React.FC = (
                       >
                         <div className="relative w-12 h-12">
                           <Image
-                            src={player.avatar}
-                            alt={player.name}
+                            src={getAvatarById(player.avatarId)}
+                            alt={"avatar-"+player.nickname}
                             layout="fill"
                             objectFit="cover"
                             className="rounded-full border-2 border-indigo-500"
@@ -224,7 +243,7 @@ const RoomPage: React.FC = (
                           )}
                         </div>
                         <span className="text-lg font-medium text-indigo-700">
-                          {player.name}
+                          {player.nickname}
                         </span>
                       </div>
                     ))}
