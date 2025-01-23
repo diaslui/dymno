@@ -32,13 +32,15 @@ import {io} from "socket.io-client"
 
 
 const RoomPage: React.FC = (
-  { room }: { room: Room }
+  { room }: { room: Room  }
 ) => {
+
   const [playerCount, setPlayerCount] = useState<number>(4);
   const [gameMode, setGameMode] = useState<string>("classic");
   const [invalidRoom, setInvalidRoom] = useState<boolean>(false);
   const [roomData, setRoomData] = useState<Room | null>(null);
   const [players, setPlayers] = useState<Room["members"]>([]);
+
 
   const router = useRouter();
  
@@ -117,7 +119,7 @@ const RoomPage: React.FC = (
   ];
 
   const copyRoomLink = () => {
-    navigator.clipboard.writeText(window.location.href+`?r=${room.id}`);
+    navigator.clipboard.writeText(window.location.href+`?room=${room.id}`);
   };
 
 

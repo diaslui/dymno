@@ -18,15 +18,11 @@ import { createRoomRequest } from "@/components/requests/createRoom";
 import { generatePlayerId } from "#/modules/utils/id";
 import { avatars } from "#/modules/settings/avatars";
 import { Member, Room } from "#/modules/core/types";
-import { useRouter, useParams } from "next/navigation";
 import RoomPage from "./room/room";
-import { io } from "socket.io-client";
-
-const socket = io("http://localhost:3000");
+import { useSearchParams } from "next/navigation";
+import { validateRoomRequest } from "@/components/requests/validateRoom";
 
 const Home: React.FC = () => {
-  const router = useRouter();
-
   const [nickname, setNickname] = useState<string>("");
   const [roomCode, setRoomCode] = useState<string>("");
   const [selectedAvatar, setSelectedAvatar] = useState<string>(avatars[0].url);
@@ -35,13 +31,36 @@ const Home: React.FC = () => {
   const [loaderText, setLoaderText] = useState<string>("");
   const [onRoom, setOnRoom] = useState<boolean>(false);
   const [room, setRoom] = useState<Room | undefined>(undefined);
+  const searchParams = useSearchParams();
 
-  const params = useParams();
-
-  const roomParam = params?.room;
-  if (roomParam && typeof roomParam === "string") {
-    setRoomCode(roomParam);
+  const roomRedirect = (roomCode: string) => {
+    if (roomCode) {
+      setLoaderText("Opa, estamos entrando na sala para você...");
+      setLoading(true);
+       validateRoomRequest(roomCode).then((response: Room | null) => {
+         if (response) {
+           setLoading(false);
+           setRoom(response);
+           setOnRoom(true);
+         } else {
+           console.log("Error on entering the room.");
+           setLoading(false);
+         }
+       });
+    }
   }
+
+
+  useEffect(() => {
+    // check if the room code is in the URL....
+    const roomParam = searchParams?.get("room");
+    if (roomParam && typeof roomParam === "string") {
+      console.log("Room code:", roomParam);
+      setRoomCode(roomParam); // redirect the user to the room if it is
+      roomRedirect(roomParam);
+    }
+    console.log("Room code:", roomCode);
+  }, [searchParams, roomCode]);
 
   useEffect(() => {
     const savedNickname = localStorage.getItem("nickname");
@@ -92,17 +111,6 @@ const Home: React.FC = () => {
         setRoom(response);
         setOnRoom(true);
 
-        socket.connect();
-
-        socket.on("connect", () => {
-          console.log("Connected to server");
-        });
-
-        socket.on("disconnect", () => {
-          console.log("Disconnected from server");
-        });
-
-        socket.emit("join-room", response.id, owner);
       } else {
         console.log("Erro ao criar a sala.");
         setLoading(false);
@@ -112,7 +120,7 @@ const Home: React.FC = () => {
 
   return (
     <>
-      {onRoom ? (
+      {onRoom && room ? (
         <RoomPage room={room} />
       ) : (
         <div
