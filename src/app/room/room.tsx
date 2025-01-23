@@ -42,6 +42,7 @@ const RoomPage: React.FC = (
   const [invalidRoom, setInvalidRoom] = useState<boolean>(false);
   const [roomData, setRoomData] = useState<Room | null>(null);
   const [players, setPlayers] = useState<Room["members"]>([]);
+  const [isRoomOwner, setRoomOwner] = useState<boolean>(false);
 
 
   const router = useRouter();
@@ -93,6 +94,17 @@ const RoomPage: React.FC = (
           if (room.mode){
             setGameMode(room.mode.modeId)
           } 
+
+          if (room.owner?.socketId == socket.id ){
+            setRoomOwner(true)
+          }else{
+            setRoomOwner(false)
+          }
+
+          setPlayerCount(
+            room.size
+          )
+
         }
       )
 
@@ -145,6 +157,9 @@ const RoomPage: React.FC = (
     navigator.clipboard.writeText(window.location.href+`?room=${room.id}`);
   };
 
+  const changeCount = (value: number[]) => {
+    setPlayerCount(value[0])
+  }
 
 
 
@@ -238,13 +253,14 @@ const RoomPage: React.FC = (
                             objectFit="cover"
                             className="rounded-full border-2 border-indigo-500"
                           />
-                          {player.isHost && (
-                            <Crown className="absolute -top-1 -right-1 h-5 w-5 text-yellow-400" />
-                          )}
+                        
                         </div>
                         <span className="text-lg font-medium text-indigo-700">
                           {player.nickname}
                         </span>
+                        {isRoomOwner && (
+                            <Crown className=" h-6 w-6 text-rose-600" />
+                          )}
                       </div>
                     ))}
                   </div>
@@ -272,7 +288,7 @@ const RoomPage: React.FC = (
                     <div className="flex items-center space-x-4">
                       <Slider
                         value={[playerCount]}
-                        onValueChange={(value) => setPlayerCount(value[0])}
+                        onValueChange={(value) => changeCount(value)}
                         max={10}
                         min={2}
                         step={1}
