@@ -103,7 +103,7 @@ const Footer: React.FC = () => {
           <p className="mt-2 flex items-center font-bold justify-center">
             Made with <Heart className="h-4 w-4 mx-1 text-red-500" /> by {" <"}
             <a
-              href="https://github.com/luiisp"
+              href="https://github.com/diaslui"
               className="hover:text-yellow-300 font-bold transition-colors"
             >
               Lui 
